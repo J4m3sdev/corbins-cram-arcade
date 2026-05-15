@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corbin's Cram Arcade — ELA</title>
+</head>
+<body>
+<p>Corbin's Cram Arcade — ELA edition. Game code to port next.</p>
+<script>
+const TERMS = [
+  // -------- ELA: LITERARY TERMS --------
+  { topic: "ELA: Literary Terms", term: "1st Person POV", def: "Uses 'I' and 'me' to tell a story; narrator is usually the main character." },
+  { topic: "ELA: Literary Terms", term: "3rd Person Limited POV", def: "Outsider's voice; only knows one character's thoughts and feelings." },
+  { topic: "ELA: Literary Terms", term: "3rd Person Omniscient POV", def: "'God-like' voice that knows every character's thoughts." },
+  { topic: "ELA: Literary Terms", term: "Mood", def: "The emotion the reader feels." },
+  { topic: "ELA: Literary Terms", term: "Tone", def: "The attitude the writer shows toward the subject." },
+  { topic: "ELA: Literary Terms", term: "Theme", def: "An insight about life or human nature that gives a story meaning." },
+  { topic: "ELA: Literary Terms", term: "Conflict", def: "A problem that needs to be solved in a story." },
+  { topic: "ELA: Literary Terms", term: "Protagonist", def: "The hero of the story." },
+  { topic: "ELA: Literary Terms", term: "Antagonist", def: "The main obstacle to the protagonist." },
+  { topic: "ELA: Literary Terms", term: "Climax", def: "The action or decision that changes the outcome of the conflict." },
+  { topic: "ELA: Literary Terms", term: "Resolution", def: "The end of the conflict." },
+  { topic: "ELA: Literary Terms", term: "Exposition", def: "The first part of the plot; introduces characters, setting, and time frame." },
+  { topic: "ELA: Literary Terms", term: "Diction", def: "The author's word choice; affects tone and meaning." },
+  { topic: "ELA: Literary Terms", term: "Foil", def: "A character whose traits contrast with another to highlight their differences." },
+
+  // -------- ELA: MUCH ADO CHARACTERS --------
+  { topic: "ELA: Much Ado Characters", term: "Beatrice", def: "Pleasant-spirited lady with a sharp tongue; Hero's cousin; rivals Benedick in wit." },
+  { topic: "ELA: Much Ado Characters", term: "Benedick", def: "Soldier and sworn bachelor; trades insults with Beatrice; later falls for her." },
+  { topic: "ELA: Much Ado Characters", term: "Hero", def: "Leonato's daughter; Beatrice's cousin; engaged to Claudio." },
+  { topic: "ELA: Much Ado Characters", term: "Claudio", def: "Young soldier who falls in love with Hero; easily fooled by Don John." },
+  { topic: "ELA: Much Ado Characters", term: "Leonato", def: "Hero's father; governor of Messina; hosts the soldiers." },
+  { topic: "ELA: Much Ado Characters", term: "Don John", def: "The 'plain-dealing villain'; Don Pedro's bitter half-brother." },
+  { topic: "ELA: Much Ado Characters", term: "Don Pedro", def: "Prince of Aragon; arranges Claudio's match with Hero." },
+  { topic: "ELA: Much Ado Characters", term: "Dogberry", def: "Comedic constable; mixes up words, has bad English." },
+  { topic: "ELA: Much Ado Characters", term: "Conrade & Borachio", def: "Don John's followers; their confession exposes the plot against Hero." },
+  { topic: "ELA: Much Ado Characters", term: "Friar Francis", def: "Tells everyone to pretend Hero is dead to make Claudio feel guilty." },
+
+  // -------- ELA: MUCH ADO PLOT --------
+  { topic: "ELA: Much Ado Plot", term: "Beatrice & Hero (relationship)", def: "Cousins." },
+  { topic: "ELA: Much Ado Plot", term: "Who is Leonato", def: "Hero's father." },
+  { topic: "ELA: Much Ado Plot", term: "The 'plain-dealing villain'", def: "Don John." },
+  { topic: "ELA: Much Ado Plot", term: "'Pleasant-spirited lady' with sharp tongue", def: "Beatrice." },
+  { topic: "ELA: Much Ado Plot", term: "'Merry war of wits'", def: "Beatrice and Benedick." },
+  { topic: "ELA: Much Ado Plot", term: "Don John tells Claudio at masked ball", def: "That Don Pedro is wooing Hero for himself." },
+  { topic: "ELA: Much Ado Plot", term: "Claudio's reaction to Prince getting Hero", def: "He gets jealous and angry, feels betrayed." },
+  { topic: "ELA: Much Ado Plot", term: "Benedick's physical change in Act III", def: "He shaves his beard and dresses up — because he's in love." },
+  { topic: "ELA: Much Ado Plot", term: "Why Dogberry is comedic", def: "He doesn't have good English; he mixes up his words." },
+  { topic: "ELA: Much Ado Plot", term: "Beatrice in love (Act III)", def: "She softens and stops insulting Benedick." },
+  { topic: "ELA: Much Ado Plot", term: "Wedding in Act IV", def: "Claudio rejects Hero at the altar, accusing her of being unfaithful." },
+  { topic: "ELA: Much Ado Plot", term: "Why pretend Hero is dead", def: "To make Claudio feel guilty and to clear her name." },
+  { topic: "ELA: Much Ado Plot", term: "What Beatrice demands of Benedick", def: "Kill Claudio for shaming Hero." },
+  { topic: "ELA: Much Ado Plot", term: "What Conrade & Borachio's statements prove", def: "That Don John framed Hero; she is innocent." },
+  { topic: "ELA: Much Ado Plot", term: "Claudio's penance for Leonato", def: "Marry Leonato's 'niece' (actually Hero in disguise)." },
+  { topic: "ELA: Much Ado Plot", term: "How Beatrice & Benedick's love is revealed", def: "Through letters they secretly wrote about each other." },
+
+  // -------- ELA: MUCH ADO QUOTES --------
+  { topic: "ELA: Much Ado Quotes", term: "Leonato — 'merry war'", def: "'There is a kind of merry war betwixt Signor Benedick and her. They never meet but there's a skirmish of wit between them.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Beatrice — youth vs. man", def: "'And he that is more than a youth is not for me, and he that is less than a man, I am not for him.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Don Pedro — disguise plan", def: "'I will assume thy part in some disguise, and tell fair Hero that I am Claudio.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Benedick — offering service", def: "'Will your grace command me any service to the world's end? I will go on the slightest errand now to the Antipodes...'" },
+  { topic: "ELA: Much Ado Quotes", term: "Don John — admits being villain", def: "'In this, though I cannot be said to be a flattering honest man, it must not be denied but I am a plain-dealing villain.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Dogberry — 'writ down an ass'", def: "'O that I had been writ down an ass!'" },
+  { topic: "ELA: Much Ado Quotes", term: "Hero — 'I am a maid'", def: "'One Hero died defiled but I do live, and surely as I live, I am a maid.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Claudio — friendship and love", def: "'Friendship is constant in all other things, save in the office and affairs of love.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Benedick — bachelor turned married", def: "'When I said I would die a bachelor, I did not think I should live till I were married.'" },
+  { topic: "ELA: Much Ado Quotes", term: "Leonato — grief", def: "'Everyone cannot master a grief but he that has it.'" },
+
+  // -------- ELA: ROBINSON CRUSOE --------
+  { topic: "ELA: Robinson Crusoe", term: "Crusoe's children", def: "3." },
+  { topic: "ELA: Robinson Crusoe", term: "Does Crusoe return to the island", def: "No." },
+  { topic: "ELA: Robinson Crusoe", term: "Years on the island", def: "28 years." },
+  { topic: "ELA: Robinson Crusoe", term: "Years away from England", def: "35 years total." },
+  { topic: "ELA: Robinson Crusoe", term: "Crusoe's main food source", def: "Goats." },
+  { topic: "ELA: Robinson Crusoe", term: "What Crusoe's dream predicted", def: "He rescues a cannibal from other cannibals and becomes his master." },
+  { topic: "ELA: Robinson Crusoe", term: "Crusoe's name for the island", def: "First 'Island of Despair'; later 'Island of Hope.'" },
+  { topic: "ELA: Robinson Crusoe", term: "Why Crusoe goes to Guinea with Brazilians", def: "To buy slaves cheaply for the plantations." },
+  { topic: "ELA: Robinson Crusoe", term: "Second African voyage outcome", def: "Pirates capture his ship; he's enslaved in Sallee." },
+  { topic: "ELA: Robinson Crusoe", term: "Who Crusoe takes from Sallee", def: "Xury, a young Moorish boy." },
+  { topic: "ELA: Robinson Crusoe", term: "Why Crusoe stops his journal", def: "He runs low on ink." },
+  { topic: "ELA: Robinson Crusoe", term: "Time on island before footprint", def: "About 15 years." },
+  { topic: "ELA: Robinson Crusoe", term: "How Crusoe rescues Friday", def: "He shoots Friday's cannibal pursuers." },
+  { topic: "ELA: Robinson Crusoe", term: "Who Friday finds in the enemy canoe", def: "His father." },
+  { topic: "ELA: Robinson Crusoe", term: "How Crusoe regains his fortune", def: "His Brazilian plantation profits are returned to him." },
+  { topic: "ELA: Robinson Crusoe", term: "Crusoe's daily activity during illness", def: "Reading the Bible and prayer — his religious awakening." },
+  { topic: "ELA: Robinson Crusoe", term: "Friday's reaction to going home", def: "He wants to stay with Crusoe no matter what." },
+  { topic: "ELA: Robinson Crusoe", term: "First Bible message Crusoe read", def: "'Call upon me in the day of trouble; I will deliver you.' He grows to truly understand and live by it." },
+  { topic: "ELA: Robinson Crusoe", term: "Spaniards & mutineers after Crusoe leaves", def: "They cooperate and peacefully govern the island together." },
+  { topic: "ELA: Robinson Crusoe", term: "Crusoe's reaction to the footprint", def: "Terror; he hides and becomes paranoid for days." },
+
+  // -------- ELA: THEMES --------
+  { topic: "ELA: Themes", term: "Lord of the Flies — Theme 1", def: "Civilization vs. savagery — without rules, humans descend into chaos." },
+  { topic: "ELA: Themes", term: "Lord of the Flies — Theme 2", def: "Loss of innocence — children lose their goodness on the island." },
+  { topic: "ELA: Themes", term: "Much Ado About Nothing — Theme 1", def: "Appearance vs. reality — deception drives the plot; nothing is what it seems." },
+  { topic: "ELA: Themes", term: "Much Ado About Nothing — Theme 2", def: "Power of love — but also how easily love can be manipulated by others." },
+  { topic: "ELA: Themes", term: "Robinson Crusoe — Theme 1", def: "Survival through faith and self-reliance." },
+  { topic: "ELA: Themes", term: "Robinson Crusoe — Theme 2", def: "Man vs. nature — and the value of hard work and ingenuity." },
+];
+</script>
+</body>
+</html>
